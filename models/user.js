@@ -18,8 +18,17 @@ module.exports = function(sequelize, DataTypes) {
 
     newLanguages: {
       type: DataTypes.TEXT
-    }
-
+    },
   });
+
+  User.associate = function(models) {
+    // Associating User with Games
+    // When an User is deleted, also delete any associated Games
+    User.hasMany(models.Game, {
+      onDelete: "cascade"
+    });
+  
+  };
+
   return User;
 };
