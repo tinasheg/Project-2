@@ -3,13 +3,13 @@ module.exports = function(sequelize, DataTypes) {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      len: [1],
+      len: [1]
     },
 
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      len: [1],
+      len: [1]
     },
 
     knownLanguages: {
@@ -18,7 +18,7 @@ module.exports = function(sequelize, DataTypes) {
 
     newLanguages: {
       type: DataTypes.TEXT
-    },
+    }
   });
 
   User.associate = function(models) {
@@ -27,7 +27,6 @@ module.exports = function(sequelize, DataTypes) {
     User.hasMany(models.Game, {
       onDelete: "cascade"
     });
-  
   };
 
   return User;
