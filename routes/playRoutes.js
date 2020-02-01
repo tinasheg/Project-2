@@ -5,15 +5,15 @@ var db = require("../models");
 module.exports = function(app) {
   // GET route for getting all of the plays
   app.get("/api/play", function(req, res) {
-    var query = {};
-    if (req.query.UserId) {
-      query.UserId = req.query.UserId;
-    }
+//     var query = {};
+//     if (req.query.UserId) {
+//       query.UserId = req.query.UserId;
+//     }
     // Here we add an "include" property to our options in our findAll query
     // We set the value to an array of the models we want to include in a left outer join
     // In this case, just db.User
     db.Game.findAll({
-      where: query,
+//       where: query,
       include: [db.User]
     }).then(function(dbGame) {
       res.json(dbGame);
@@ -21,13 +21,13 @@ module.exports = function(app) {
   });
 
   // Get route for retrieving a single game
-  app.get("/api/play/:id", function(req, res) {
+  app.get("/api/play/:UserId", function(req, res) {
     // Here we add an "include" property to our options in our findOne query
     // We set the value to an array of the models we want to include in a left outer join
     // In this case, just db.User
     db.Game.findOne({
       where: {
-        id: req.params.id
+        UserId: req.params.UserId
       },
       include: [db.User]
     }).then(function(dbGame) {
@@ -42,19 +42,19 @@ module.exports = function(app) {
     });
   });
 
-  // DELETE route for deleting play ******* may not be required
-  app.delete("/api/play/:id", function(req, res) {
-    db.Game.destroy({
-      where: {
-        id: req.params.id
-      }
-    }).then(function(dbGame) {
-      res.json(dbGame);
-    });
-  });
+//   // DELETE route for deleting play ******* may not be required
+//   app.delete("/api/play/:id", function(req, res) {
+//     db.Game.destroy({
+//       where: {
+//         id: req.params.id
+//       }
+//     }).then(function(dbGame) {
+//       res.json(dbGame);
+//     });
+//   });
 
   // PUT route for updating play
-  app.put("/api/play", function(req, res) {
+  app.put("/api/play/:id", function(req, res) {
     db.Game.update(req.body, {
       where: {
         id: req.body.id
