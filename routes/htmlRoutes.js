@@ -3,6 +3,10 @@ var db = require("../models");
 module.exports = function(app) {
   // Load index page
   app.get("/", function(req, res) {
+    res.render("index");
+  });
+  app.get("/play", function(req, res) {
+    res.render("play");
     db.Game.findAll({}).then(function(dbGame) {
       res.render("index", {
         msg: "Welcome!",

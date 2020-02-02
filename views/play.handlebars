@@ -1,0 +1,58 @@
+{{!-- language select drop down menu --}}
+<div class="row chooseLang">
+    <div class="col-md-1"></div>
+    <div class="col-md-4">
+        <select class="custom-select">
+            <option selected="">Known Language</option>
+            <option value="1">"from google translate api"</option>
+            <option value="2">"handlebars will be required"</option>
+        </select>
+    </div>
+    <div class="col-md-2"></div>
+    <div class="col-md-4">
+        <select class="custom-select">
+            <option selected="">Language to Learn</option>
+            <option value="1">"from google translate api"</option>
+            <option value="2">"handlebars will be required"</option>
+        </select>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+
+<div class="row game">
+    {{!-- hangman animation --}}
+    <div class="col-md-7">
+        <div class="gameScene">
+            <canvas id="canvas" class="canvas" width="400" height="400"></canvas>
+        </div>
+    </div>
+
+    <div class="col-md-1"></div>
+    <div class="col-md-4">
+        <div class="row inputGuess">
+            <div class="wordInput">
+                {{!-- user letter input --}}
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="letter to guess">
+                    <div class="input-group-append">
+                        <button class="btn btn-success" type="button">Submit Guess</button>
+                    </div>
+                </div>
+            </div>
+
+            {{!-- letters guessed appear here --}}
+            <div class="guess">letters guessed appear here</div>
+
+            {{!-- link/button: hint --}}
+            <button type="button" class="btn btn-light hint">Get a Hint</button>
+        </div>
+    </div>
+</div>
+
+{{!-- word to be guessed --}}
+<div class="row toGuess">
+    <div class="col-md-7">
+        <div class="word">word to be guessed will go here</div>
+    </div>
+    <div class="col-md-5"></div>
+</div>
