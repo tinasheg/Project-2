@@ -23,7 +23,7 @@
     {{!-- hangman animation --}}
     <div class="col-md-7">
         <div class="gameScene">
-            <canvas id="canvas" class="canvas" width="400" height="400"></canvas>
+            <canvas id="canvas" class="canvas" width="200" height="200"></canvas>
         </div>
     </div>
 
@@ -33,15 +33,15 @@
             <div class="wordInput">
                 {{!-- user letter input --}}
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="letter to guess">
+                    <input type="text" class="form-control" placeholder="letter to guess" id="letter-guessed">
                     <div class="input-group-append">
-                        <button class="btn btn-success" type="button">Submit Guess</button>
+                        <button class="btn btn-success" type="submit" id="submit-guess">Submit Guess</button>
                     </div>
                 </div>
             </div>
 
             {{!-- letters guessed appear here --}}
-            <div class="guess">letters guessed appear here</div>
+            <div class="guess" id="letters-guessed"></div>
 
             {{!-- link/button: hint --}}
             <button type="button" class="btn btn-light hint">Get a Hint</button>
@@ -52,7 +52,7 @@
 {{!-- word to be guessed --}}
 <div class="row toGuess">
     <div class="col-md-7">
-        <div class="word">word to be guessed will go here</div>
+        <div class="word" id="word-to-guess"></div>
     </div>
     <div class="col-md-5"></div>
 </div>
