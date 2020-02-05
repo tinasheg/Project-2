@@ -41,3 +41,4 @@ googleTranslate.translate(searchText, targetLanguage, function(
 ) {
   console.log("translated:", translation.translatedText);
 });
+
