@@ -7,12 +7,6 @@ module.exports = function(app) {
   });
   app.get("/play", function(req, res) {
     res.render("play");
-    db.Game.findAll({}).then(function(dbGame) {
-      res.render("index", {
-        msg: "Welcome!",
-        examples: dbGame
-      });
-    });
   });
 
   // // Load example page and pass in an example by id
