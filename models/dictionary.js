@@ -1,17 +1,22 @@
 module.exports = function(sequelize, DataTypes) {
-  var Dictionary = sequelize.define("Dictionary", {
-    word: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      len: [1]
-    },
+  var Dictionary = sequelize.define(
+    "Dictionary",
+    {
+      word: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        len: [1]
+      },
 
-    level: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+      level: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      }
     },
-    timestamps: false
-  });
+    {
+      timestamps: false
+    }
+  );
 
   Dictionary.associate = function(models) {
     // Associating Game with Dictionary
