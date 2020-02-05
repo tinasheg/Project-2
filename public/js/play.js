@@ -30,14 +30,14 @@ var done;
 //--------------------------------
 //function to choose random word from dictionary
 function chooseWord() {
-  const word = dictionary[Math.floor(Math.random() * dictionary.length)];
+  var word = dictionary[Math.floor(Math.random() * dictionary.length)];
   console.log("chosen word is: ", word);
 
   //saves index of choosen word
   chosenWordIndex = dictionary.indexOf(word);
 
   //create _ for each letter in chosen word & write to DOM
-  for (let index = 0; index < word.length; index++) {
+  for (let i = 0; i < word.length; i++) {
     guessList.push(" _ ");
   }
   wordToGuess.innerHTML = guessList.join(" ");
