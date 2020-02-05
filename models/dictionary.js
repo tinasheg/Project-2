@@ -9,7 +9,8 @@ module.exports = function(sequelize, DataTypes) {
     level: {
       type: DataTypes.INTEGER,
       allowNull: false
-    }
+    },
+    timestamps: false
   });
 
   Dictionary.associate = function(models) {
