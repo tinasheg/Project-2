@@ -1,3 +1,6 @@
+/* eslint-disable indent */
+/* eslint-disable prettier/prettier */
+/* eslint-disable no-unused-vars */
 //--------------------------------
 // VARIABLES
 //--------------------------------
@@ -37,7 +40,7 @@ function chooseWord() {
   chosenWordIndex = dictionary.indexOf(word);
 
   //create _ for each letter in chosen word & write to DOM
-  for (let i = 0; i < word.length; i++) {
+  for (var i = 0; i < word.length; i++) {
     guessList.push(" _ ");
   }
   wordToGuess.innerHTML = guessList.join(" ");
@@ -99,7 +102,7 @@ resetGame();
 var secretWord = chooseWord();
 
 //listens for submit-guess button press
-$("#submit-guess").on("click", function(event) {
+$("#submit-guess").on("click", function (event) {
   event.preventDefault();
   var letter = $("#letter-guessed")
     .val()
@@ -125,7 +128,7 @@ $("#submit-guess").on("click", function(event) {
 
   //check to see if gussed letter is in secret word
   var inSecretWord = false;
-  for (let index = 0; index < secretWord.length; index++) {
+  for (var index = 0; index < secretWord.length; index++) {
     if (secretWord[index] === letter) {
       //console.log(letter, " is the ", index + 1, " letter in the secret word");
       guessList[index] = letter;
