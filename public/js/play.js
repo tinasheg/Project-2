@@ -10,15 +10,6 @@ var wordToGuess = document.getElementById("word-to-guess");
 var lettersGuessed = document.getElementById("letters-guessed");
 var selectLang = document.querySelector(".lang");
 
-//get currentURL
-var currentURL = window.location.origin;
-
-//updates selected language everytime a 'change' is registered & posts to game api
-selectLang.addEventListener("change", event => {
-  const result = document.querySelector(".result");
-  result.textContent = `Language selected: ${event.target.value}`;
-});
-
 // test dictionary
 //var dictionary = ["cat", "dog"];
 
@@ -38,10 +29,11 @@ var guessed = [];
 var count = 0;
 
 //var done;
+
 //--------------------------------
 // FUNCTIONS
 //--------------------------------
-//function to choose random word from dictionary
+
 function displayWord(word) {
   // var word = dictionary[Math.floor(Math.random() * dictionary.length)];
   // console.log("chosen word is: ", word);
@@ -67,9 +59,6 @@ function resetGame() {
 
   //print values on screen
   lettersGuessed.innerHTML = "Letters Guessed: " + guessed;
-
-  //reloads the page
-  // location.reload();
 }
 
 function gameOver() {
@@ -112,11 +101,25 @@ function draw(part) {
 
 //starts the game
 resetGame();
-var secretWord = $("#word-to-guess")
-  .data("guess")
+var originalWord = $("#word-to-guess")
+  .data("original")
   .toLowerCase();
-console.log(secretWord);
-displayWord(secretWord);
+console.log("word from db: ", originalWord);
+
+//updates selected language everytime a 'change' is registered & posts to game api
+selectLang.addEventListener("change", event => {
+  const result = document.querySelector(".result");
+  const lang = event.target.value;
+  result.textContent = "Language selected: " + lang;
+
+  //translate(originalWord, lang);
+
+  var secretWord = $("#word-to-guess")
+    .data("guess")
+    .toLowerCase();
+  console.log("translated in ", lang, secretWord);
+  //displayWord(secretWord);
+});
 
 //listens for submit-guess button press
 $("#submit-guess").on("click", function(event) {

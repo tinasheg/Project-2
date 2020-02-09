@@ -13,29 +13,23 @@ module.exports = function(app) {
   });
   // eslint-disable-next-line prettier/prettier
   app.get("/play", function(req, res) {
-    //res.render("play");
-
     db.Dictionary.findOne({
       where: {
         level: "1"
       },
       order: Sequelize.literal("rand()")
     }).then(function(result) {
-      var word = result.word;
-      var targetLanguage = "de";
+      var w = result.word;
+      var tL = "de";
       try {
-        googleTranslate.translate(word, targetLanguage, function(
-          err,
-          translation
-        ) {
+        googleTranslate.translate(w, tL, function(err, translation) {
           if (err) {
             console.log("err1", err);
           }
-          //console.log("translated:", translation.translatedText);
           res.render("play", {
-            originalWord: word,
-            selectedLanguage: targetLanguage,
-            translatedWord: translation.translatedText
+            originalWord: w,
+            translatedWord: translation.translatedText,
+            selectedLanguage: tL
           });
         });
       } catch (err) {
