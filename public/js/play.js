@@ -8,12 +8,22 @@
 var canvas = document.getElementById("canvas");
 var wordToGuess = document.getElementById("word-to-guess");
 var lettersGuessed = document.getElementById("letters-guessed");
+var selectLang = document.querySelector(".lang");
+
+//get currentURL
+var currentURL = window.location.origin;
+
+//updates selected language everytime a 'change' is registered & posts to game api
+selectLang.addEventListener("change", event => {
+  const result = document.querySelector(".result");
+  result.textContent = `Language selected: ${event.target.value}`;
+});
 
 // test dictionary
-var dictionary = ["cat", "dog"];
+//var dictionary = ["cat", "dog"];
 
 // variable to hold chosen word index
-var chosenWordIndex;
+//var chosenWordIndex;
 
 // score variables
 var guessesLeft = 10;
@@ -27,24 +37,24 @@ var guessed = [];
 // # of times letter was added to guessList
 var count = 0;
 
-var done;
+//var done;
 //--------------------------------
 // FUNCTIONS
 //--------------------------------
 //function to choose random word from dictionary
-function chooseWord() {
-  var word = dictionary[Math.floor(Math.random() * dictionary.length)];
-  console.log("chosen word is: ", word);
+function displayWord(word) {
+  // var word = dictionary[Math.floor(Math.random() * dictionary.length)];
+  // console.log("chosen word is: ", word);
 
-  //saves index of choosen word
-  chosenWordIndex = dictionary.indexOf(word);
+  // //saves index of choosen word
+  // chosenWordIndex = dictionary.indexOf(word);
 
   //create _ for each letter in chosen word & write to DOM
   for (var i = 0; i < word.length; i++) {
     guessList.push(" _ ");
   }
   wordToGuess.innerHTML = guessList.join(" ");
-  return word;
+  //return word;
 }
 
 // reset game
@@ -57,6 +67,9 @@ function resetGame() {
 
   //print values on screen
   lettersGuessed.innerHTML = "Letters Guessed: " + guessed;
+
+  //reloads the page
+  // location.reload();
 }
 
 function gameOver() {
@@ -99,10 +112,14 @@ function draw(part) {
 
 //starts the game
 resetGame();
-var secretWord = chooseWord();
+var secretWord = $("#word-to-guess")
+  .data("guess")
+  .toLowerCase();
+console.log(secretWord);
+displayWord(secretWord);
 
 //listens for submit-guess button press
-$("#submit-guess").on("click", function (event) {
+$("#submit-guess").on("click", function(event) {
   event.preventDefault();
   var letter = $("#letter-guessed")
     .val()
@@ -143,6 +160,7 @@ $("#submit-guess").on("click", function (event) {
     }
   } else if (count === secretWord.length) {
     alert("You Win");
+    location.reload();
   }
   //prints updated guesslist to screen
   wordToGuess.innerHTML = guessList.join(" ");

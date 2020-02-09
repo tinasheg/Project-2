@@ -6,32 +6,35 @@ var googleTranslate = require("google-translate")(
   process.env.GOOGLE_TRANSLATE_API
 );
 
-module.exports = function (app) {
+module.exports = function(app) {
   // Load index page
-  app.get("/", function (req, res) {
+  app.get("/", function(req, res) {
     res.render("index");
   });
   // eslint-disable-next-line prettier/prettier
-  app.get("/play", function (req, res) {
+  app.get("/play", function(req, res) {
+    //res.render("play");
+
     db.Dictionary.findOne({
       where: {
         level: "1"
       },
       order: Sequelize.literal("rand()")
-    }).then(function (result) {
+    }).then(function(result) {
       var word = result.word;
       var targetLanguage = "de";
       try {
-        googleTranslate.translate(word, targetLanguage, function (
+        googleTranslate.translate(word, targetLanguage, function(
           err,
           translation
         ) {
           if (err) {
             console.log("err1", err);
           }
-          console.log("translated:", translation.translatedText);
+          //console.log("translated:", translation.translatedText);
           res.render("play", {
             originalWord: word,
+            selectedLanguage: targetLanguage,
             translatedWord: translation.translatedText
           });
         });
