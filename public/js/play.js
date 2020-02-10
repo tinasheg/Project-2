@@ -17,7 +17,7 @@ var selectLang = document.querySelector(".lang");
 //var chosenWordIndex;
 
 // score variables
-var guessesLeft = 10;
+var guessesLeft;
 
 //empty array to hold each letter of chosen word
 var guessList = [];
@@ -28,7 +28,8 @@ var guessed = [];
 // # of times letter was added to guessList
 var count = 0;
 
-//var done;
+var done;
+var currentPart = 10;
 
 //--------------------------------
 // FUNCTIONS
@@ -52,7 +53,6 @@ function displayWord(word) {
 // reset game
 function resetGame() {
   //resets variables
-  guessesLeft = 4;
   guessList = [];
   guessed = [];
   count = 0;
@@ -67,6 +67,7 @@ function gameOver() {
 
 // function to draw hangman
 function draw(part) {
+  --currentPart;
   console.log("draw part: ", part);
   if (canvas.getContext) {
     var ctx = canvas.getContext("2d");
@@ -74,54 +75,54 @@ function draw(part) {
     ctx.lineWidth = 3;
     ctx.strokeStyle = "#FFFFFF";
     switch (part) {
-      case 9:
-        ctx.moveTo(150, 150);
-        ctx.lineTo(50, 150); //base
-        ctx.stroke();
-        break;
-      case 8:
-        ctx.moveTo(70, 150);
-        ctx.lineTo(70, 50); //mast
-        ctx.stroke();
-        break;
-      case 7:
-        ctx.moveTo(70, 50);
-        ctx.lineTo(120, 50); //rafter
-        ctx.stroke();
-        break;
-      case 6:
-        ctx.moveTo(120, 50);
-        ctx.lineTo(120, 70); //rafter cont.
-        ctx.stroke();
-        break;
-      case 5:
-        ctx.moveTo(130, 80);
-        ctx.arc(120, 80, 10, 0, 2 * Math.PI); //head
-        ctx.stroke();
-        break;
-      case 4:
-        ctx.moveTo(120, 90);
-        ctx.lineTo(120, 120); //body
-        ctx.stroke();
-        break;
-      case 3:
-        ctx.moveTo(120, 100);
-        ctx.lineTo(110, 110); //left arm
-        ctx.stroke();
-        break;
-      case 2:
-        ctx.moveTo(120, 100);
-        ctx.lineTo(130, 110); //right arm
-        ctx.stroke();
-        break;
       case 1:
+        ctx.moveTo(120, 120);
+        ctx.lineTo(130, 130); //right leg
+        ctx.stroke();
+        return true;
+      case 2:
         ctx.moveTo(120, 120);
         ctx.lineTo(110, 130); //left leg
         ctx.stroke();
         break;
-      case 0:
-        ctx.moveTo(120, 120);
-        ctx.lineTo(130, 130); //right leg
+      case 3:
+        ctx.moveTo(120, 100);
+        ctx.lineTo(130, 110); //right arm
+        ctx.stroke();
+        break;
+      case 4:
+        ctx.moveTo(120, 100);
+        ctx.lineTo(110, 110); //left arm
+        ctx.stroke();
+        break;
+      case 5:
+        ctx.moveTo(120, 90);
+        ctx.lineTo(120, 120); //body
+        ctx.stroke();
+        break;
+      case 6:
+        ctx.moveTo(130, 80);
+        ctx.arc(120, 80, 10, 0, 2 * Math.PI); //head
+        ctx.stroke();
+        break;
+      case 7:
+        ctx.moveTo(120, 50);
+        ctx.lineTo(120, 70); //rafter cont.
+        ctx.stroke();
+        break;
+      case 8:
+        ctx.moveTo(70, 50);
+        ctx.lineTo(120, 50); //rafter
+        ctx.stroke();
+        break;
+      case 9:
+        ctx.moveTo(70, 150);
+        ctx.lineTo(70, 50); //mast
+        ctx.stroke();
+        break;
+      case 10:
+        ctx.moveTo(150, 150);
+        ctx.lineTo(50, 150); //base
         ctx.stroke();
         break;
     }
@@ -137,23 +138,27 @@ resetGame();
 var originalWord = $("#word-to-guess")
   .data("original")
   .toLowerCase();
-console.log("word from db: ", originalWord);
+console.log("word from db = ", originalWord);
 
 //updates selected language everytime a 'change' is registered & posts to game api
 selectLang.addEventListener("change", event => {
   const result = document.querySelector(".result");
   const lang = event.target.value;
-  result.textContent = "Language selected: " + lang;
+  //result.textContent = "Language selected: " + lang;
+  console.log("selected language = ", lang);
 });
 
 // reads & sets secretWord from db
 var secretWord = $("#word-to-guess")
   .data("guess")
   .toLowerCase();
-//console.log("translated in ", lang, secretWord);
+console.log("tranalsted word =", secretWord);
 
 //show secretWord to DOM
 displayWord(secretWord);
+
+guessesLeft = secretWord.length + 10;
+console.log("total number of guesses in this round = ", guessesLeft);
 
 //listens for submit-guess button press
 $("#submit-guess").on("click", function(event) {
@@ -178,6 +183,7 @@ $("#submit-guess").on("click", function(event) {
 
     //subtract 1 from guessesLeft
     --guessesLeft;
+    console.log("guessesLeft =", guessesLeft);
   }
 
   //check to see if gussed letter is in secret word
@@ -190,10 +196,11 @@ $("#submit-guess").on("click", function(event) {
       inSecretWord = true;
     }
   }
-  if (guessesLeft <= 4 && inSecretWord === false) {
-    done = draw(guessesLeft + count);
-    if (done) {
-      gameOver();
+  if (inSecretWord === false) {
+    done = draw(currentPart);
+    if (guessesLeft === 0 || done) {
+      alert("You Lose");
+      location.reload();
     }
   } else if (count === secretWord.length) {
     alert("You Win");
