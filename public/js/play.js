@@ -71,26 +71,59 @@ function draw(part) {
   if (canvas.getContext) {
     var ctx = canvas.getContext("2d");
     ctx.beginPath();
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = "#FFFFFF";
     switch (part) {
-      case 0:
-        ctx.arc(75, 75, 50, 0, Math.PI * 2, true); // Outer circle
+      case 9:
+        ctx.moveTo(150, 150);
+        ctx.lineTo(50, 150); //base
         ctx.stroke();
-        return (done = true);
-      case 1:
-        ctx.moveTo(110, 75);
-        ctx.arc(75, 75, 35, 0, Math.PI, false); // Mouth (clockwise)
+        break;
+      case 8:
+        ctx.moveTo(70, 150);
+        ctx.lineTo(70, 50); //mast
         ctx.stroke();
-        return (done = false);
-      case 2:
-        ctx.moveTo(65, 65);
-        ctx.arc(60, 65, 5, 0, Math.PI * 2, true); // Left eye
+        break;
+      case 7:
+        ctx.moveTo(70, 50);
+        ctx.lineTo(120, 50); //rafter
         ctx.stroke();
-        return (done = false);
+        break;
+      case 6:
+        ctx.moveTo(120, 50);
+        ctx.lineTo(120, 70); //rafter cont.
+        ctx.stroke();
+        break;
+      case 5:
+        ctx.moveTo(130, 80);
+        ctx.arc(120, 80, 10, 0, 2 * Math.PI); //head
+        ctx.stroke();
+        break;
+      case 4:
+        ctx.moveTo(120, 90);
+        ctx.lineTo(120, 120); //body
+        ctx.stroke();
+        break;
       case 3:
-        ctx.moveTo(95, 65);
-        ctx.arc(90, 65, 5, 0, Math.PI * 2, true); // Right eye
+        ctx.moveTo(120, 100);
+        ctx.lineTo(110, 110); //left arm
         ctx.stroke();
-        return (done = false);
+        break;
+      case 2:
+        ctx.moveTo(120, 100);
+        ctx.lineTo(130, 110); //right arm
+        ctx.stroke();
+        break;
+      case 1:
+        ctx.moveTo(120, 120);
+        ctx.lineTo(110, 130); //left leg
+        ctx.stroke();
+        break;
+      case 0:
+        ctx.moveTo(120, 120);
+        ctx.lineTo(130, 130); //right leg
+        ctx.stroke();
+        break;
     }
   }
 }
@@ -111,15 +144,16 @@ selectLang.addEventListener("change", event => {
   const result = document.querySelector(".result");
   const lang = event.target.value;
   result.textContent = "Language selected: " + lang;
-
-  //translate(originalWord, lang);
-
-  var secretWord = $("#word-to-guess")
-    .data("guess")
-    .toLowerCase();
-  console.log("translated in ", lang, secretWord);
-  //displayWord(secretWord);
 });
+
+// reads & sets secretWord from db
+var secretWord = $("#word-to-guess")
+  .data("guess")
+  .toLowerCase();
+//console.log("translated in ", lang, secretWord);
+
+//show secretWord to DOM
+displayWord(secretWord);
 
 //listens for submit-guess button press
 $("#submit-guess").on("click", function(event) {
