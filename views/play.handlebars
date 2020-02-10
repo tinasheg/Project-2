@@ -1,22 +1,21 @@
 {{!-- language select drop down menu --}}
 <div class="row chooseLang">
-    <div class="col-md-1"></div>
+    <div class="col-md-4"></div>
     <div class="col-md-4">
-        <select class="custom-select">
-            <option selected="">Known Language</option>
-            <option value="1">"from google translate api"</option>
-            <option value="2">"handlebars will be required"</option>
-        </select>
-    </div>
-    <div class="col-md-2"></div>
-    <div class="col-md-4">
-        <select class="custom-select">
+        <select class="custom-select lang" name="lang-select">
             <option selected="">Language to Learn</option>
-            <option value="1">"from google translate api"</option>
-            <option value="2">"handlebars will be required"</option>
+            <option value="en">English</option>
+            <option value="fil">Filipino</option>
+            <option value="fr">French</option>
+            <option value="de">German</option>
+            <option value="it">Italian</option>
+            <option value="es">Spanish</option>
         </select>
     </div>
-    <div class="col-md-1">The word is {{originalWord}} and it is translated as {{translatedWord}}</div>
+    <div class="col-md-4">
+        <p>The word is {{originalWord}} and it is translated as {{translatedWord}} in {{selectedLanguage}}</p>
+        <p class="result"></p>
+    </div>
 </div>
 
 <div class="row game">
@@ -52,7 +51,7 @@
 {{!-- word to be guessed --}}
 <div class="row toGuess">
     <div class="col-md-7">
-        <div class="word" id="word-to-guess"></div>
+        <div class="word" id="word-to-guess" data-guess="{{translatedWord}}" data-original="{{originalWord}}"></div>
     </div>
     <div class="col-md-5"></div>
 </div>
