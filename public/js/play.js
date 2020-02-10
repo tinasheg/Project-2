@@ -111,15 +111,16 @@ selectLang.addEventListener("change", event => {
   const result = document.querySelector(".result");
   const lang = event.target.value;
   result.textContent = "Language selected: " + lang;
-
-  //translate(originalWord, lang);
-
-  var secretWord = $("#word-to-guess")
-    .data("guess")
-    .toLowerCase();
-  console.log("translated in ", lang, secretWord);
-  //displayWord(secretWord);
 });
+
+// reads & sets secretWord from db
+var secretWord = $("#word-to-guess")
+  .data("guess")
+  .toLowerCase();
+//console.log("translated in ", lang, secretWord);
+
+//show secretWord to DOM
+displayWord(secretWord);
 
 //listens for submit-guess button press
 $("#submit-guess").on("click", function(event) {
